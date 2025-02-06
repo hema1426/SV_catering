@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="#8000"
     android:layout_height="match_parent">
@@ -44,8 +44,6 @@
                             android:textColor="#212121"
                             android:textStyle="bold"
                             android:layout_height="wrap_content"/>
-
-
                     </LinearLayout>
 
                     <EditText
@@ -85,11 +83,7 @@
                             android:textColor="#212121"
                             android:textSize="12sp"
                             android:textStyle="bold" />
-
-
                     </LinearLayout>
-
-
                     <Spinner
                         android:id="@+id/invoice_status"
                         android:layout_marginTop="10dp"
@@ -101,7 +95,60 @@
 
                 </LinearLayout>
 
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
+                <RelativeLayout
+                    android:id="@+id/spinner_lay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="6dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:background="@drawable/layout_border_radious_blue_hash"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <com.winapp.svcatering.multiselectspinner.MultiSelectSpinnerView
+                        android:id="@+id/zoneSpinnerl"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_centerVertical="true"
+                        />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:visibility="gone"
+                        android:background="@drawable/round_accent_whit_rad3"
+                        android:src="@drawable/ic_keyboard_arrow_down_accent_24dp"
+                        app:tint="@color/gray" />
+
+                </RelativeLayout>
+
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_margin="6dp"
+                    android:padding="7dp"
+                    android:layout_weight="2"
+                    android:inputType="number"
+                    android:id="@+id/phoneNo_value"
+                    android:textSize="11sp"
+                    android:hint="Phone No"
+                    android:maxLength="13"
+                    android:layout_gravity="center"
+                    android:background="@drawable/invoice_edit_text"
+                    android:layout_below="@+id/code_title"
+                    android:layout_height="wrap_content"/>
 
             </LinearLayout>
 
@@ -110,6 +157,7 @@
                 android:padding="5dp"
                 android:focusableInTouchMode="true"
                 android:layout_weight="1"
+                android:visibility="gone"
                 android:orientation="vertical"
                 android:layout_height="wrap_content">
 

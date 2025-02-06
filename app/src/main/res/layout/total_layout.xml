@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:background="@color/white"
     android:layout_height="wrap_content"
-    tools:context="com.winapp.saperp.activity.CashCollectionActivity">
+    tools:context="com.winapp.svcatering.activity.CashCollectionActivity">
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"

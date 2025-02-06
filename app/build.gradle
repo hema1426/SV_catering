@@ -9,10 +9,10 @@ apply plugin: 'com.google.firebase.crashlytics'
 android {
     compileSdk 34
 
-    namespace 'com.winapp.saperp'
+    namespace 'com.winapp.svcatering'
 
     defaultConfig {
-        applicationId "com.winapp.saperp"
+        applicationId "com.winapp.svcatering"
         minSdk 22
         targetSdk 34
         versionCode 1
@@ -49,7 +49,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.preference:preference:1.1.1'

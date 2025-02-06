@@ -325,7 +325,7 @@
                     android:layout_height="match_parent"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior"  />
 -->
-                <com.winapp.saperp.utils.HomeViewPager
+                <com.winapp.svcatering.utils.HomeViewPager
                     android:id="@+id/viewpager"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

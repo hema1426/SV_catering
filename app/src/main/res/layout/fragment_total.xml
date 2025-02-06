@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="com.winapp.saperp.fragments.TotalFragment">
+    tools:context="com.winapp.svcatering.fragments.TotalFragment">
 
 
     <TextView
@@ -31,7 +31,7 @@
         android:layout_marginTop="40dp"
         android:background="@color/white"
         android:layout_height="wrap_content"
-        tools:context="com.winapp.saperp.activity.CashCollectionActivity">
+        tools:context="com.winapp.svcatering.activity.CashCollectionActivity">
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="horizontal"

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:background="@color/white"
     android:layout_height="match_parent"
-    tools:context="com.winapp.saperp.activity.CashCollectionActivity">
+    tools:context="com.winapp.svcatering.activity.CashCollectionActivity">
 
     <FrameLayout
         android:layout_width="match_parent"

@@ -10,13 +10,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.winapp.saperp.fragments.CashInvoiceFragment">
+    tools:context="com.winapp.svcatering.fragments.CashInvoiceFragment">
 
 <LinearLayout
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.winapp.saperp.fragments.CashInvoiceFragment">
+    tools:context="com.winapp.svcatering.fragments.CashInvoiceFragment">
 
     <include
         android:id="@+id/cash_layout"
@@ -57,6 +57,7 @@
         tools:listitem="@layout/cash_collection_invoice_items"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/lit_grey_new"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

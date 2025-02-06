@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SAP-ERP</string>
+    <string name="app_name">SV-Catering</string>
 
     <string name="tools_text_account_information_username">User Name</string>
     <string name="tools_text_account_information_email">Test@yahoo.com</string>
@@ -99,7 +99,7 @@
         <item>Replaced</item>
     </string-array>
     <string name="title_activity_maps">Map</string>
-    <string name="copy_rights">Copyright 2024 Winapp solutions Pte Ltd</string>
+    <string name="copy_rights">Copyright 2025 Winapp solutions Pte Ltd</string>
     <string name="gst">GST</string>
     <string name="unit">Unit</string>
     <string name="unit_qty">Unit Qty</string>

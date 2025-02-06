@@ -12,7 +12,7 @@
         android:layout_weight="1"
         android:layout_height="wrap_content">
 
-        <com.winapp.saperp.utils.MyKeyboard
+        <com.winapp.svcatering.utils.MyKeyboard
             android:id="@+id/keyboard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

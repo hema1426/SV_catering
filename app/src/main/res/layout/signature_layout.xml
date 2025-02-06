@@ -39,7 +39,7 @@
             android:id="@+id/signature_layout"
             android:layout_height="200dp"/>
 
-        <com.winapp.saperp.utils.CaptureSignatureView
+        <com.winapp.svcatering.utils.CaptureSignatureView
             android:layout_width="match_parent"
             android:background="#d3d3d3"
             android:visibility="gone"
