@@ -9,15 +9,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"
-        android:background="#f5f5f5"
-        android:layout_height="50dp">
+        android:background="@color/lit_blue"
+        android:layout_height="40dp">
 
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
             android:id="@+id/cash_check"
-            android:visibility="invisible"
+            android:visibility="gone"
             android:layout_gravity="center"
             android:textStyle="bold"
             android:textColor="@color/white"
@@ -34,30 +34,19 @@
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:layout_width="45dp"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="top"
+            android:layout_weight="1.1"
             android:gravity="left|center"
             android:textStyle="bold"
             android:textColor="@color/colorPrimary"
-            android:text="T-Type"
-            android:textSize="12dp"
+            android:text=" T-Type/ Date"
+            android:textSize="11dp"
             />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="top"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:layout_weight="0.9"
-            android:textColor="@color/colorPrimary"
-            android:text="Inv Date"
-            android:textSize="12dp"
-            />
-
-        <TextView
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="top"
             android:layout_weight="1"
@@ -69,7 +58,7 @@
             />
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="top"
             android:layout_weight="1"
@@ -81,7 +70,7 @@
             />
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="top"
             android:gravity="center"
@@ -92,16 +81,15 @@
             android:textSize="12dp"
             />
 
-
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="top"
             android:gravity="center"
             android:layout_weight="1"
             android:textStyle="bold"
             android:textColor="@color/colorPrimary"
-            android:text="Balance"
+            android:text="Balance "
             android:textSize="12dp"
             />
 

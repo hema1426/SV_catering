@@ -1,54 +1,6 @@
-TRANS_ORIENT_DEMO
-TO01
-12345
-------
-Username: V1
-Password: 12345
+sv_catering login
+501pung   12345
 
-V1 V11234
-
-SUPER_STAR_DEMO
-ST01
-Yn7876z
-{"Username":"SuperStar01","Password":"SS123"}
-
-
-aug 24
-{
-    "Username" : "SuperStar01",
-    "Password" : "SS@123"
-}
-
-SHABAN_URL_demo
-shaban
-12345
-
-AAdhi demo
-Username : AADHIVAN 1
-Pasword : b123456
-
-AAdhi live
-AADHIVAN 3
-
-new july
- "Username" : "AADHIVAN 1",
-    "Password" : "b123456"
-
-    //raymang
-    username - ctc230003.1
-    Pwd - 12345
-
-Username - ctc230004.1
-Pwd - 12345
-
-fuxin
-Username - ctc230004.1
-Pwd - 1234
-c12345
-
-raymanng
-Username - ctc230003.1
-Pwd - 12345
             case R.id.action_save:  -- CreateNewInvoiceActivity  common credt limit condtion
             createInvoiceValidation() method hide
 

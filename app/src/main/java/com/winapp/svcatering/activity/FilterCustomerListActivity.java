@@ -1,5 +1,8 @@
 package com.winapp.svcatering.activity;
 
+import static com.winapp.svcatering.activity.NewInvoiceListActivity.locationCode1;
+import static com.winapp.svcatering.activity.NewInvoiceListActivity.zoneStrCode;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -390,7 +393,11 @@ public class FilterCustomerListActivity extends NavigationActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String groupCode=customersGroupList.get(position).getCustomerGroupCode();
                 String groupName=customersGroupList.get(position).getCustomerGroupName();
-                getCustomers(groupCode);
+                if(groupName.equalsIgnoreCase("Agent")) {  //faisal said this condition
+                    getCustomers(groupCode,"");
+                }else{
+                    getCustomers(groupCode,zoneStrCode);
+                }
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -582,7 +589,7 @@ public class FilterCustomerListActivity extends NavigationActivity {
     }
 
 
-    public void getCustomers(String groupCode){
+    public void getCustomers(String groupCode , String zoneStr){
         // Initialize a new RequestQueue instance
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         String url=Utils.getBaseUrl(this) +"CustomerList";
@@ -591,6 +598,8 @@ public class FilterCustomerListActivity extends NavigationActivity {
         JSONObject jsonObject=new JSONObject();
         try {
             jsonObject.put("GroupCode",groupCode);
+            jsonObject.put("LocationCode", locationCode1);
+            jsonObject.put("Dormitory", zoneStr);
         } catch (JSONException e) {
             e.printStackTrace();
         }

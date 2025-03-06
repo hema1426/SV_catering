@@ -154,6 +154,7 @@ public class CashCollectionActivity extends AppCompatActivity {
     private static String companyId;
     public static TextView bankCode;
     LinearLayout bankLayout;
+    Boolean netAmountFocus = false ;
     ImageView salesReturn;
     public static EditText returnAmountEditText;
     private LinearLayout bottomLayout;
@@ -199,7 +200,7 @@ public class CashCollectionActivity extends AppCompatActivity {
         signatureString = "";
         imageString = "";
 
-        Log.w("activity_cg",getClass().getSimpleName().toString());
+        Log.w("activity_cg",getClass().getSimpleName().toString()+" CashInvoiceFragment");
 
         netAmount=findViewById(R.id.net_amount);
         btnSplit=findViewById(R.id.btn_split);
@@ -442,17 +443,17 @@ public class CashCollectionActivity extends AppCompatActivity {
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) { if (chequeNo.getText().toString().isEmpty()){
-                    chequeNo.setError("Enter Check Number");
-                }else if (dueDateEdittext.getText().toString().isEmpty()){
-                    dueDateEdittext.setError("Select Check Date");
-                }else if (!chequeNo.getText().toString().isEmpty() && !dueDateEdittext.getText().toString().isEmpty() ){
-                    bankName=bankNameEntry.getSelectedItem().toString();
-                    chequeDate=dueDateEdittext.getText().toString();
-                    chequeNoValue=chequeNo.getText().toString();
-                    check=true;
-                    dueDateEdittext.setError(null);
-                    chequeNo.setError(null);
-                }
+                chequeNo.setError("Enter Check Number");
+            }else if (dueDateEdittext.getText().toString().isEmpty()){
+                dueDateEdittext.setError("Select Check Date");
+            }else if (!chequeNo.getText().toString().isEmpty() && !dueDateEdittext.getText().toString().isEmpty() ){
+                bankName=bankNameEntry.getSelectedItem().toString();
+                chequeDate=dueDateEdittext.getText().toString();
+                chequeNoValue=chequeNo.getText().toString();
+                check=true;
+                dueDateEdittext.setError(null);
+                chequeNo.setError(null);
+            }
                 if (check){
                     closeSheet();
                     chequeNo.clearFocus();
@@ -509,15 +510,20 @@ public class CashCollectionActivity extends AppCompatActivity {
         btnSplit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if ( !netAmount.getText().toString().equals(".")) {
-                    if (!netAmount.getText().toString().isEmpty() &&
-                            (Double.parseDouble(netAmount.getText().toString()) > 0.00)) {
-                        CashInvoiceFragment.splitInvoices();
+                if(netAmountFocus) {
+                    if (!netAmount.getText().toString().equals(".")) {
+                        if (!netAmount.getText().toString().isEmpty() &&
+                                (Double.parseDouble(netAmount.getText().toString()) > 0.00)) {
+                            Log.w("dsplit11", "");
+                            CashInvoiceFragment.splitInvoices();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Value Should not be empty", Toast.LENGTH_LONG).show();
+                        }
                     } else {
                         Toast.makeText(getApplicationContext(), "Value Should not be empty", Toast.LENGTH_LONG).show();
                     }
-                }else {
-                    Toast.makeText(getApplicationContext(), "Value Should not be empty", Toast.LENGTH_LONG).show();
+                }else{
+                    Log.w("dsplit11aa", "");
                 }
 
             }
@@ -530,7 +536,16 @@ public class CashCollectionActivity extends AppCompatActivity {
             }
         });
 
-
+        netAmount.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (hasFocus) {
+                    netAmountFocus = true ;
+                } else {
+                    netAmountFocus = false ;
+                }
+            }
+        });
 
         // Define the Textwatcher of the Total Paid Amount
 
@@ -610,7 +625,7 @@ public class CashCollectionActivity extends AppCompatActivity {
                                 paymentTypeList.add(model);
                             }
                             if (paymentTypeList.size()>0){
-                               // setBankDetails(bankList);
+                                // setBankDetails(bankList);
                             }
                         }else {
 
@@ -790,16 +805,17 @@ public class CashCollectionActivity extends AppCompatActivity {
                         }
                     }
                     if(!netAmount.getText().toString().equals(".")){
-                    if (netAmount.getText().toString()!=null &&
-                            !netAmount.getText().toString().isEmpty() &&
-                            Double.parseDouble(netAmount.getText().toString()) > 0 &&
-                            Double.parseDouble(selectedAmount.getText().toString()) >= 0){
-                        showCashCollectionClearAlert();
-                    }else {
+                        if (netAmount.getText().toString()!=null &&
+                                !netAmount.getText().toString().isEmpty() &&
+                                Double.parseDouble(netAmount.getText().toString()) > 0 &&
+                                Double.parseDouble(selectedAmount.getText().toString()) >= 0){
+                            showCashCollectionClearAlert();
+                        }else {
 //                        Intent intent=new Intent(CashCollectionActivity.this,NewInvoiceListActivity.class);
 //                        startActivity(intent);
-                        finish();
-                    }
+                            onBackPressed();
+                            finish();
+                        }
                     }
                 }
                 break;
@@ -863,7 +879,7 @@ public class CashCollectionActivity extends AppCompatActivity {
                         // Arguments for the Bank Transfer Mode
                         closeSheet();
                         if (Double.parseDouble(selectedAmount.getText().toString()) > 0){
-                           // showAlert();
+                            // showAlert();
                             if (Double.parseDouble(differenceAmount.getText().toString())< 0) {
                                 netAmount.setError(null);
                                 Toast.makeText(getApplicationContext(),"Excess Amount should not be negative",Toast.LENGTH_SHORT).show();
@@ -942,17 +958,17 @@ public class CashCollectionActivity extends AppCompatActivity {
                     public void onClick(SweetAlertDialog sDialog) {
                         sDialog.dismissWithAnimation();
                         try {
-                           // CashCollectionInvoiceAdapter.saveReceipts();
+                            // CashCollectionInvoiceAdapter.saveReceipts();
                             Log.w("Net_Returnvalue:", SalesReturnAdapter.net_return_value);
                             CashInvoiceFragment.saveReceipt(Integer.parseInt(noOfCopyText.getText().toString()),isReceiptPrint);
-                           // CashInvoiceFragment.showSaveOption("Add");
+                            // CashInvoiceFragment.showSaveOption("Add");
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
                 }).showCancelButton(true)
-                  .setCancelText("No")
-                  .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                .setCancelText("No")
+                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sDialog) {
                         sDialog.cancel();
@@ -1333,15 +1349,13 @@ public class CashCollectionActivity extends AppCompatActivity {
         alert.show();
     }
 
-
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         dbHelper.removeAllInvoices();
-      //  Intent intent=new Intent(CashCollectionActivity.this,NewInvoiceListActivity.class);
-       // startActivity(intent);
-       // finish();
+        //  Intent intent=new Intent(CashCollectionActivity.this,NewInvoiceListActivity.class);
+        // startActivity(intent);
+        finish();
     }
 
     public void showCashCollectionClearAlert(){
@@ -1381,14 +1395,14 @@ public class CashCollectionActivity extends AppCompatActivity {
 
 
     public void viewCloseBottomSheet(String showView){
-          hideKeyboard();
-          if (showView.equals("BankOption")){
-              bankOptionLayout.setVisibility(View.VISIBLE);
-              lTotalLayout.setVisibility(View.GONE);
-          }else if (showView.equals("TotalView")){
-              bankOptionLayout.setVisibility(View.GONE);
-              lTotalLayout.setVisibility(View.VISIBLE);
-          }
+        hideKeyboard();
+        if (showView.equals("BankOption")){
+            bankOptionLayout.setVisibility(View.VISIBLE);
+            lTotalLayout.setVisibility(View.GONE);
+        }else if (showView.equals("TotalView")){
+            bankOptionLayout.setVisibility(View.GONE);
+            lTotalLayout.setVisibility(View.VISIBLE);
+        }
         if (behavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
             behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         } /*else {
@@ -1422,7 +1436,7 @@ public class CashCollectionActivity extends AppCompatActivity {
                         dateEditext.setText((dayOfMonth)+ "-" + (monthOfYear + 1) + "-" + year);
                     }
                 }, mYear, mMonth, mDay);
-       // datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+        // datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         datePickerDialog.show();
     }
 

@@ -253,7 +253,6 @@ class NewInvoiceListActivity : NavigationActivity(), View.OnClickListener, OnTab
     private var salesManSpinner: Spinner? = null
     private var selectedUser: String? = ""
     private var usersList: ArrayList<UserListModel>? = null
-    var locationCode1: String? = null
     var zoneMutipleCode: String? = ""
 
     var addressZoneList: ArrayList<AddressZoneModel> = ArrayList()
@@ -3670,6 +3669,8 @@ class NewInvoiceListActivity : NavigationActivity(), View.OnClickListener, OnTab
         var zoneStrName: String? = ""
         @JvmField
         var zoneStrCode: String? = ""
+        @JvmField
+        var locationCode1: String? = ""
 
         // Storage Permissions
         private const val REQUEST_EXTERNAL_STORAGE = 1

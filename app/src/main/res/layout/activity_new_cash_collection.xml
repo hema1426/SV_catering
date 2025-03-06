@@ -429,8 +429,8 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Total Paid Amt"
                             android:layout_marginLeft="10dp"
+                            android:text="Total Paid Amt"
                             android:textColor="#212121"
                             android:textSize="12sp"
                             android:textStyle="bold" />
@@ -547,7 +547,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Excess Amount"
+                            android:text="Excess Amt"
                             android:layout_marginLeft="10dp"
                             android:textColor="#212121"
                             android:textSize="12sp"

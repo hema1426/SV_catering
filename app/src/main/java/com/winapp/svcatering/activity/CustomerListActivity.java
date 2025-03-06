@@ -48,6 +48,7 @@ import com.winapp.svcatering.salesreturn.NewSalesReturnProductAddActivity;
 import com.winapp.svcatering.utils.BarCodeScanner;
 import com.winapp.svcatering.utils.Constants;
 import com.winapp.svcatering.utils.SessionManager;
+import com.winapp.svcatering.utils.SharedPreferenceUtil;
 import com.winapp.svcatering.utils.Utils;
 
 import org.json.JSONArray;
@@ -85,6 +86,8 @@ public class CustomerListActivity extends NavigationActivity {
     FloatingActionButton showLocation;
     FloatingActionButton addReceipt;
     DBHelper dbHelper;
+    private SharedPreferenceUtil sharedPreferenceUtil;
+
     int RESULT_CODE = 12;
     LinearLayout createInvoiceLayout;
     LinearLayout addReceiptLayout;
@@ -97,7 +100,7 @@ public class CustomerListActivity extends NavigationActivity {
     private String outstandingAmount;
     private String username;
 
-    private String billDiscApi;
+    private String billDiscApi,zoneStr;
 
     public String createInvoiceSetting = "false";
     private Spinner customerGroupSpinner;
@@ -146,8 +149,14 @@ public class CustomerListActivity extends NavigationActivity {
         customerPrint = findViewById(R.id.customer_outstanding_print);
         customerPrintLayout = findViewById(R.id.outstanding_print);
         addReceipt = findViewById(R.id.add_receipt);
-        dbHelper = new DBHelper(this);
 
+        dbHelper = new DBHelper(this);
+        sharedPreferenceUtil = new SharedPreferenceUtil(this);
+
+        zoneStr = sharedPreferenceUtil.getStringPreference(
+                Constants.KEY_ADDRESS_ZONE_CODE,
+                Constants.DEFAULT_STRING
+        ) ;
       /*  if (getIntent()!=null){
             message=getIntent().getStringExtra("Message");
             assert message != null;
@@ -469,7 +478,11 @@ public class CustomerListActivity extends NavigationActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String groupCode = customersGroupList.get(position).getCustomerGroupCode();
                 String groupName = customersGroupList.get(position).getCustomerGroupName();
-                getCustomers(groupCode);
+                if(groupName.equalsIgnoreCase("Agent")) {  //faisal said this condition
+                    getCustomers(groupCode,"");
+                }else{
+                    getCustomers(groupCode,zoneStr);
+                }
             }
 
             @Override
@@ -664,7 +677,7 @@ public class CustomerListActivity extends NavigationActivity {
     }
 
 
-    public void getCustomers(String groupCode) {
+    public void getCustomers(String groupCode,String zoneStr) {
         // Initialize a new RequestQueue instance
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         String url = Utils.getBaseUrl(this) + "CustomerList";
@@ -674,6 +687,7 @@ public class CustomerListActivity extends NavigationActivity {
         try {
             jsonObject.put("GroupCode", groupCode);
             jsonObject.put("LocationCode", locationCode);
+            jsonObject.put("Dormitory", zoneStr);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -695,6 +709,7 @@ public class CustomerListActivity extends NavigationActivity {
                                 CustomerModel model = new CustomerModel();
                                 model.setCustomerCode(object.optString("customerCode"));
                                 model.setCustomerName(object.optString("customerName"));
+                                model.setPhoneNo(object.optString("ContactNo"));
                                 model.setAddress1(object.optString("address"));
                                 model.setAddress2(object.optString("street"));
                                 model.setAddress3(object.optString("city"));
@@ -860,7 +875,9 @@ public class CustomerListActivity extends NavigationActivity {
             //looping through existing elements
             for (CustomerModel s : customerList) {
                 //if the existing elements contains the search input
-                if (s.getCustomerName().toLowerCase().contains(text.toLowerCase()) || s.getCustomerCode().toLowerCase().contains(text.toLowerCase())) {
+                if (s.getCustomerName().toLowerCase().contains(text.toLowerCase())
+                        || s.getCustomerCode().toLowerCase().contains(text.toLowerCase())
+                        || s.getPhoneNo().toLowerCase().contains(text.toLowerCase())) {
                     //adding the element to filtered list
                     filterdNames.add(s);
                 }

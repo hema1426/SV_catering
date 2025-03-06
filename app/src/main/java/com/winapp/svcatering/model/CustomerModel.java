@@ -18,6 +18,15 @@ public class CustomerModel {
     private String allowFOC;
     private String mailId;
     private String billDiscPercentage;
+    private String phoneNo;
+
+    public String getPhoneNo() {
+        return phoneNo;
+    }
+
+    public void setPhoneNo(String phoneNo) {
+        this.phoneNo = phoneNo;
+    }
 
     public String getMailId() {
         return mailId;

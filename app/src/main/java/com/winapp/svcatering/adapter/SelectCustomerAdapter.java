@@ -73,6 +73,7 @@ public class SelectCustomerAdapter extends RecyclerView.Adapter<SelectCustomerAd
         CustomerModel model=customers.get(i);
         viewHolder.customerName.setText(model.getCustomerName());
         viewHolder.customerCode.setText(model.getCustomerCode());
+        viewHolder.phoneNo.setText(model.getPhoneNo());
         viewHolder.outstandingAmount.setText(Utils.twoDecimalPoint(Double.parseDouble(model.getOutstandingAmount())));
 
         if (model.getAddress1()!=null && !model.getAddress1().isEmpty()){
@@ -121,6 +122,7 @@ public class SelectCustomerAdapter extends RecyclerView.Adapter<SelectCustomerAd
 
         if (context instanceof CustomerListActivity){
             viewHolder.moreIcon.setVisibility(View.GONE);
+            viewHolder.phoneNoLay.setVisibility(View.VISIBLE);
             viewHolder.customerLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -136,7 +138,7 @@ public class SelectCustomerAdapter extends RecyclerView.Adapter<SelectCustomerAd
         Log.w("custContex",""+activityName);
      if (activityName.equals("SalesOrder") || activityName.equals("Invoice")){
        // if ( activityName.equals("Invoice")){
-            viewHolder.three_dot_custl.setVisibility(View.VISIBLE);
+            viewHolder.three_dot_custl.setVisibility(View.GONE);
             if (activityName.equals("SalesOrder")){
                 activityName = "SalesOrder" ;
             }
@@ -181,9 +183,9 @@ public class SelectCustomerAdapter extends RecyclerView.Adapter<SelectCustomerAd
     public class ViewHolder extends RecyclerView.ViewHolder{
         private TextView customerName;
         private TextView customerAddress;
-        private TextView customerCode;
+        private TextView customerCode , phoneNo;
         private CardView customerCard;
-        private LinearLayout customerLayout;
+        private LinearLayout customerLayout , phoneNoLay;
         private ImageView moreIcon;
         private ImageView locationIcon;
         private TextView outstandingAmount;
@@ -199,6 +201,8 @@ public class SelectCustomerAdapter extends RecyclerView.Adapter<SelectCustomerAd
             moreIcon=view.findViewById(R.id.more_icon);
             locationIcon=view.findViewById(R.id.location_icon);
             outstandingAmount=view.findViewById(R.id.outstanding_amount);
+            phoneNoLay=view.findViewById(R.id.phoneNoLayCust);
+            phoneNo=view.findViewById(R.id.cust_phoneNo);
             three_dot_custl=view.findViewById(R.id.three_dot_cust);
         }
     }

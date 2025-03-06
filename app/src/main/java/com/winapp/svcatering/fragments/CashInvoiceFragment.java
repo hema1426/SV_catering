@@ -89,7 +89,7 @@ public class CashInvoiceFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private static RecyclerView cashInvoiceView;
-   // private static CashCollectionInvoiceAdapter cashCollectionInvoiceAdapter;
+    // private static CashCollectionInvoiceAdapter cashCollectionInvoiceAdapter;
     public static NewCashCollectionAdapter cashCollectionInvoiceAdapter;
     public static CheckBox cashCheck;
     static ArrayList<CashCollectionInvoiceModel> cashInvoices;
@@ -101,7 +101,7 @@ public class CashInvoiceFragment extends Fragment {
     private static String customerCode;
     private static String userName;
     private static String locationCode;
-    private static String currentDate;
+    private static String currentDate ;
     public static String amountpayable;
     public static DBHelper dbHelper;
     private static FragmentActivity myContext;
@@ -237,7 +237,7 @@ public class CashInvoiceFragment extends Fragment {
             }else {
                 JSONObject jsonObject=new JSONObject();
                 try {
-                   // jsonObject.put("CompanyCode",companyId);
+                    // jsonObject.put("CompanyCode",companyId);
                     jsonObject.put("CustomerCode",customerCode);
                     jsonObject.put("LocationCode",locationCode);
                     getCashCollectionInvoice(jsonObject);
@@ -305,7 +305,7 @@ public class CashInvoiceFragment extends Fragment {
             try {
                 object.put("CompanyCode",companyId);
                 object.put("CustomerCode",customerCode);
-               // getSalesReturn(object);
+                // getSalesReturn(object);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -447,7 +447,7 @@ public class CashInvoiceFragment extends Fragment {
         }else {
             JSONObject jsonObject=new JSONObject();
             try {
-              //  jsonObject.put("CompanyCode",companyId);
+                //  jsonObject.put("CompanyCode",companyId);
                 jsonObject.put("CustomerCode",customerCode);
                 jsonObject.put("LocationCode",locationCode);
                 getCashCollectionInvoice(jsonObject);
@@ -538,10 +538,10 @@ public class CashInvoiceFragment extends Fragment {
                 }
                 //setCalculation();
 
-               // CashCollectionActivity.totalPaid.setText(Utils.twoDecimalPoint(paid_amount));
-               // CashCollectionActivity.totalDiscount.setText(Utils.twoDecimalPoint(discount));
+                // CashCollectionActivity.totalPaid.setText(Utils.twoDecimalPoint(paid_amount));
+                // CashCollectionActivity.totalDiscount.setText(Utils.twoDecimalPoint(discount));
 
-              //  mLinearLayoutManager.scrollToPosition(cashInvoices.size() - 1); // yourList is the ArrayList that you are passing to your RecyclerView Adapter.
+                //  mLinearLayoutManager.scrollToPosition(cashInvoices.size() - 1); // yourList is the ArrayList that you are passing to your RecyclerView Adapter.
                 setNetTotal();
             }else {
                 for (CashCollectionInvoiceModel model:cashInvoices){
@@ -577,7 +577,7 @@ public class CashInvoiceFragment extends Fragment {
 
                 JSONObject jsonObject=new JSONObject();
                 try {
-                   // jsonObject.put("CompanyCode",companyId);
+                    // jsonObject.put("CompanyCode",companyId);
                     jsonObject.put("CustomerCode",customerCode);
                     jsonObject.put("LocationCode",locationCode);
                     getCashCollectionInvoice(jsonObject);
@@ -589,7 +589,7 @@ public class CashInvoiceFragment extends Fragment {
                 try {
                     object.put("CompanyCode",companyId);
                     object.put("CustomerCode",customerCode);
-                   // getSalesReturn(object);
+                    // getSalesReturn(object);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -615,12 +615,12 @@ public class CashInvoiceFragment extends Fragment {
             e.printStackTrace();
         }*/
 
-      for ( SalesReturnModel model:salesReturnList){
-          model.setIsCheked("false");
-          model.setPaidAmount("0.00");
-      }
-      salesReturnAdapter.notifyDataSetChanged();
-      CashCollectionActivity.returnAmountEditText.setText("0.00");
+        for ( SalesReturnModel model:salesReturnList){
+            model.setIsCheked("false");
+            model.setPaidAmount("0.00");
+        }
+        salesReturnAdapter.notifyDataSetChanged();
+        CashCollectionActivity.returnAmountEditText.setText("0.00");
 
     }
 
@@ -749,9 +749,11 @@ public class CashInvoiceFragment extends Fragment {
     public static void splitInvoices(){
         try {
             CashCollectionActivity.netAmount.clearFocus();
+//            CashCollectionActivity.netAmount.setText("");
             InputMethodManager imm = (InputMethodManager) myContext.getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(CashCollectionActivity.netAmount.getWindowToken(), 0);
             double paidAmount = Double.parseDouble(CashCollectionActivity.netAmount.getText().toString());
+            Log.w("dplit22 ", " ");
             if(cashInvoices.size() >0) {
                 double tempPaidAmount = paidAmount;
                 for (int i = cashInvoices.size() - 1; i >= 0; i--) {
@@ -760,7 +762,7 @@ public class CashInvoiceFragment extends Fragment {
                     cashmodel.setBalance(cashmodel.getNetBalance());
                     cashmodel.setIsbackground(false);
                     cashmodel.setIseditable(false);
-                    Log.d("dplit ", " "+cashmodel.isPreSelect() +" "+cashmodel.getNetTotal());
+                    Log.w("dplit ", " "+cashmodel.isPreSelect() +" "+cashmodel.getNetTotal());
                     if (tempPaidAmount > 0) {
                         if(cashmodel.isPreSelect()){
                             if (tempPaidAmount > Double.parseDouble(cashmodel.getNetBalance()) ) {
@@ -845,7 +847,7 @@ public class CashInvoiceFragment extends Fragment {
         try {
             double net_payable_amount=0;
             for (CashCollectionInvoiceModel m:cashInvoices){
-             net_payable_amount+=Double.parseDouble(m.getNetTotal());
+                net_payable_amount+=Double.parseDouble(m.getNetTotal());
             }
             if (net_payable_amount <  Double.parseDouble(netamount)){
                 Toast.makeText(myContext,"Amount Exceed",Toast.LENGTH_LONG).show();
@@ -908,7 +910,7 @@ public class CashInvoiceFragment extends Fragment {
                             String statusCode=response.optString("statusCode");
                             if (statusCode.equals("1")){
                                 JSONArray invoiceArray=response.optJSONArray("responseData");
-                               // {"invoiceNo":"16","invoiceDate":"5\/8\/2021 12:00:00 am","transDate":"5\/8\/2021 12:00:00 am","transactionType":"INV",
+                                // {"invoiceNo":"16","invoiceDate":"5\/8\/2021 12:00:00 am","transDate":"5\/8\/2021 12:00:00 am","transactionType":"INV",
                                 // "status":"O","paidAmount":"0.000000","total":"15321330.000000","balanceAmount":"15321330.000000","customerCode":"WinApp",
                                 // "customerName":"WinApp","fTotal":"0.000000","totalDiscount":"0.000000","taxRate":"0.000000","taxAmount":"1002330.000000",
                                 // "remarks":"","currencyCode":"SGD","createDate":"5\/8\/2021 12:00:00 am","modifiedDate":"5\/8\/2021 12:00:00 am","address1":"",
@@ -951,7 +953,7 @@ public class CashInvoiceFragment extends Fragment {
             pDialog.dismiss();
             // Do something when error occurred
             Log.w("Error_throwing:",error.toString());
-          //  Toast.makeText(myContext,"Server Error, Please Try Again",Toast.LENGTH_LONG).show();
+            //  Toast.makeText(myContext,"Server Error, Please Try Again",Toast.LENGTH_LONG).show();
             showAlert();
         }){
             @Override
@@ -984,7 +986,7 @@ public class CashInvoiceFragment extends Fragment {
     public static void showAlert(){
         AlertDialog.Builder builder=new AlertDialog.Builder(myContext);
         builder.setCancelable(false);
-       // builder.setTitle("Information");
+        // builder.setTitle("Information");
         builder.setMessage("Whoops! Server Error,Try again..");
         builder.setPositiveButton("RETRY", new DialogInterface.OnClickListener() {
             @Override
@@ -1039,11 +1041,11 @@ public class CashInvoiceFragment extends Fragment {
 //            recyclerViewState =cashInvoiceView.getLayoutManager().onSaveInstanceState();
 
 // Restore state
-         //   cashInvoiceView.getLayoutManager().onRestoreInstanceState(recyclerViewState);
+            //   cashInvoiceView.getLayoutManager().onRestoreInstanceState(recyclerViewState);
 
             mLinearLayoutManager = new LinearLayoutManager(myContext);
             cashInvoiceView.setLayoutManager(mLinearLayoutManager);
-           // cashInvoiceView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+            // cashInvoiceView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
             cashCollectionInvoiceAdapter=new NewCashCollectionAdapter(myContext,cashInvoices, new NewCashCollectionAdapter.CallBack() {
                 @Override
                 public void setPaidTotal(double netvalue,double netdiscount,double total_outstanding) {
@@ -1481,6 +1483,7 @@ public class CashInvoiceFragment extends Fragment {
             receiptHeader.put("ChequeNo",CashCollectionActivity.chequeNo.getText().toString());
             receiptHeader.put("ChequeDateString",chequeDate);
             receiptHeader.put("BankInDate","");
+
             receiptHeader.put("BankInDateString","");
         }else if (CashCollectionActivity.payMethod.equals("CASH")){
             receiptHeader.put("Paymode","Cash");
@@ -1583,6 +1586,7 @@ public class CashInvoiceFragment extends Fragment {
         receiptHeader.put("DetDebitAmount","");
         receiptHeader.put("CustomerTypeCode","");
         receiptHeader.put("IsAdvancePaid",false);
+        receiptHeader.put("image",CashCollectionActivity.imageString);
         receiptHeader.put("TotalCustomerPaidAmount",CashCollectionActivity.netAmount.getText().toString());
         receiptHeader.put("ExcessPaidAmount",CashCollectionActivity.differenceAmount.getText().toString());
         receiptHeader.put("Balance",CashCollectionActivity.differenceAmount.getText().toString());
@@ -1591,7 +1595,7 @@ public class CashInvoiceFragment extends Fragment {
         receiptHeader.put("Signature",Utils.getSignature());
         receiptHeader.put("RefPhoto",Utils.getSelectImage());
 
-       // IsAdvancePaid=0,TotalCustomerPaidAmount=PaidAmount,ExcessPaidAmount=0,WrightOff=0,Balance=0
+        // IsAdvancePaid=0,TotalCustomerPaidAmount=PaidAmount,ExcessPaidAmount=0,WrightOff=0,Balance=0
 
         ArrayList<CashCollectionInvoiceModel> cashReceiptList=cashCollectionInvoiceAdapter.getList();
 
@@ -1635,7 +1639,7 @@ public class CashInvoiceFragment extends Fragment {
                 receiptDetails.put("ModifyUser", userName);
                 receiptDetails.put("ModifyDate", currentDate);
                 receiptDetails.put("ErrorMessage", "");
-               // receiptDetails.put("AdvancePaymentAmount", "0");
+                // receiptDetails.put("AdvancePaymentAmount", "0");
                 receiptDetails.put("CustomerCode", customerCode);
                 receiptDetails.put("AccountEnabled", "");
                 receiptDetails.put("AccountNo", "");
@@ -1646,7 +1650,7 @@ public class CashInvoiceFragment extends Fragment {
                 receiptDetails.put("FPaidAmount", cashReceiptList.get(i).getPayable());
                 receiptDetails.put("FDepositAmount", "0");
                 receiptDetails.put("FDebitAmount", "0");
-               // receiptDetails.put("FAdvancePaymentAmount", "0.00");
+                // receiptDetails.put("FAdvancePaymentAmount", "0.00");
                 receiptDetails.put("FGainOrLoss", "0.00");
                 receiptDetails.put("SONo", "");
                 if (cashReceiptList.get(i).getTranType().equals("Excess")){
@@ -1658,11 +1662,11 @@ public class CashInvoiceFragment extends Fragment {
             }
         }
 
-       // rootObject.put("ReceiptsHeader",receiptHeader);
+        // rootObject.put("ReceiptsHeader",receiptHeader);
         receiptHeader.put("ReceiptsDetail",receiptDetailsArray);
-       // rootObject.put("ReturnArray","");
+        // rootObject.put("ReturnArray","");
 
-       // String cashCollectionString= Utils.jsonToEscapeString(rootObject.toString());
+        // String cashCollectionString= Utils.jsonToEscapeString(rootObject.toString());
 
         Log.w("EscapeString:",receiptHeader.toString());
 
@@ -1672,7 +1676,7 @@ public class CashInvoiceFragment extends Fragment {
 
     }
 
-   // 16-10-2020
+    // 16-10-2020
     public static String changeDateFormat(String date,String format){
         @SuppressLint("SimpleDateFormat")
         DateFormat inputFormat = new SimpleDateFormat("dd-MM-yyyy");
@@ -1702,8 +1706,8 @@ public class CashInvoiceFragment extends Fragment {
                 Log.w("Save_receipt_response:",response.toString());
                 try {
                     pDialog.dismiss();
-                   // {"statusCode":1,"statusMessage":"Receipt \/ Incoming payment saved successfully","responseData":{"docNum":"13","error":null}}
-                   // {"statusCode":2,"statusMessage":"Failed","responseData":{"docNum":null,"error":"Incoming Payment:Account for cash payments has not been defined"}}
+                    // {"statusCode":1,"statusMessage":"Receipt \/ Incoming payment saved successfully","responseData":{"docNum":"13","error":null}}
+                    // {"statusCode":2,"statusMessage":"Failed","responseData":{"docNum":null,"error":"Incoming Payment:Account for cash payments has not been defined"}}
                     String statusCode=response.optString("statusCode");
                     JSONObject responseData=response.optJSONObject("responseData");
                     if (statusCode.equals("1")){
@@ -1737,7 +1741,7 @@ public class CashInvoiceFragment extends Fragment {
                             myContext.startActivity(intent);
                             myContext.finish();
                         }
-                       // isPrint=false;
+                        // isPrint=false;
                     }else {
                         Toast.makeText(myContext,responseData.optString("error"),Toast.LENGTH_SHORT).show();
                     }

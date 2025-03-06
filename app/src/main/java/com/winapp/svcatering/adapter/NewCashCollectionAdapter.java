@@ -91,8 +91,8 @@ public class NewCashCollectionAdapter extends RecyclerView.Adapter<NewCashCollec
         }
 
 
-       // viewHolder.payableText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
-      //  viewHolder.discountText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
+        // viewHolder.payableText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
+        //  viewHolder.discountText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
 
         viewHolder.netTotal.setText(Utils.twoDecimalPoint(Double.parseDouble(model.getNetTotal())));
        /* if (model.getPayable()!=null && !model.getPayable().isEmpty()){
@@ -111,9 +111,9 @@ public class NewCashCollectionAdapter extends RecyclerView.Adapter<NewCashCollec
         viewHolder.netBalanceText.setText(Utils.twoDecimalPoint(Double.parseDouble(model.getNetBalance())));
 
         if (model.getNetBalance()!=null && !model.getNetBalance().isEmpty()){
-            Log.w("NetBalanceValues:",model.getNetBalance());
+            Log.w("NetBalanceValues1:",model.getNetBalance());
             if (Double.parseDouble(model.getNetBalance()) < 0){
-                Log.w("GivenValues:",Double.parseDouble(model.getNetBalance())+"");
+                Log.w("GivenValues1:",Double.parseDouble(model.getNetBalance())+"");
                 viewHolder.discountText.setEnabled(false);
                 viewHolder.discountText.setFocusable(false);
                 viewHolder.discountText.setBackgroundColor(Color.parseColor("#f3f3f3"));
@@ -147,6 +147,7 @@ public class NewCashCollectionAdapter extends RecyclerView.Adapter<NewCashCollec
         viewHolder.tranType.setText(model.getTranType());
         viewHolder.payableText.setSelectAllOnFocus(true);
         viewHolder.discountText.setSelectAllOnFocus(true);
+
         payableTextWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -161,74 +162,83 @@ public class NewCashCollectionAdapter extends RecyclerView.Adapter<NewCashCollec
             @Override
             public void afterTextChanged(Editable editable) {
 
-                try {
+                if (viewHolder.payableText.hasFocus()) {
 
-                    double discount=0.0;
-                    double payable=0.0;
-                    double balance=0.0;
-                    double netbalance=0.0;
+                    try {
+                        double discount=0.0;
+                        double payable=0.0;
+                        double balance=0.0;
+                        double netbalance=0.0;
 
-                    netbalance=Double.parseDouble(viewHolder.netBalanceText.getText().toString());
+                        netbalance=Double.parseDouble(viewHolder.netBalanceText.getText().toString());
 
-                    if (editable.toString().equals("-")){
-                        viewHolder.payableText.removeTextChangedListener(payableTextWatcher);
-                        viewHolder.payableText.setText("");
-                        viewHolder.payableText.addTextChangedListener(payableTextWatcher);
-                    }
-                    if (!editable.toString().isEmpty()){
-                        if (model.getTranType().equals("INV")){
-                            if (Double.parseDouble(editable.toString()) > netbalance){
-                                //Toast.makeText(context,"Amount exceed",Toast.LENGTH_SHORT).show();
-                                model.setPayable("");
-                                model.setBalance(netbalance+"");
-                                viewHolder.payableText.setText("");
-                                //setCalculation(model,viewHolder,editable.toString());
-                                setNetTotal();
+                        if (editable.toString().equals("-")){
+                            viewHolder.payableText.removeTextChangedListener(payableTextWatcher);
+                            viewHolder.payableText.setText("");
+                            viewHolder.payableText.addTextChangedListener(payableTextWatcher);
+                        }
+                        if (!editable.toString().isEmpty()){
+                            if (model.getTranType().equals("INV")){
+                                if (Double.parseDouble(editable.toString()) > netbalance){
+                                    //Toast.makeText(context,"Amount exceed",Toast.LENGTH_SHORT).show();
+                                    model.setPayable("");
+                                    model.setBalance(netbalance+"");
+
+                                    viewHolder.payableText.removeTextChangedListener(payableTextWatcher);
+                                    viewHolder.payableText.setText("");
+                                    viewHolder.payableText.addTextChangedListener(payableTextWatcher);                                //setCalculation(model,viewHolder,editable.toString());
+                                    setNetTotal();
+                                }else {
+                                    // model.setPayable(editable.toString());
+                                    setCalculation(model,viewHolder,editable.toString());
+                                    // setNetTotal();
+                                }
                             }else {
-                               // model.setPayable(editable.toString());
-                                setCalculation(model,viewHolder,editable.toString());
-                               // setNetTotal();
+                                Log.w("GivenBalanceAmount1:",viewHolder.balanceAmount.getText().toString());
+                                double net_balance=Double.parseDouble(viewHolder.netBalanceText.getText().toString());
+                                double pay_amount=Double.parseDouble(editable.toString());
+                                double bal=net_balance+pay_amount;
+                                if (bal  > 0){
+                                    Toast.makeText(context,"Transaction value exceed",Toast.LENGTH_SHORT).show();
+                                    model.setPayable("");
+                                    model.setBalance(netbalance+"");
+
+                                    viewHolder.payableText.removeTextChangedListener(payableTextWatcher);
+                                    viewHolder.payableText.setText("");
+                                    viewHolder.payableText.addTextChangedListener(payableTextWatcher);
+
+                                    //setCalculation(model,viewHolder,editable.toString());
+                                    setNetTotal();
+                                }else {
+                                    model.setPayable(editable.toString());
+                                    setCalculation(model,viewHolder,editable.toString());
+                                    setNetTotal();
+                                }
                             }
                         }else {
-                            Log.w("GivenBalanceAmount:",viewHolder.balanceAmount.getText().toString());
-                            double net_balance=Double.parseDouble(viewHolder.netBalanceText.getText().toString());
-                            double pay_amount=Double.parseDouble(editable.toString());
-                            double bal=net_balance+pay_amount;
-                            if (bal  > 0){
-                                Toast.makeText(context,"Transaction value exceed",Toast.LENGTH_SHORT).show();
-                                model.setPayable("");
-                                model.setBalance(netbalance+"");
-                                viewHolder.payableText.setText("");
-                                //setCalculation(model,viewHolder,editable.toString());
-                                setNetTotal();
+                            if (!viewHolder.discountText.getText().toString().isEmpty()){
+                                discount=Double.parseDouble(viewHolder.discountText.getText().toString());
                             }else {
-                                model.setPayable(editable.toString());
-                                setCalculation(model,viewHolder,editable.toString());
-                                setNetTotal();
+                                model.setDiscount("");
+                                discount=0.0;
                             }
-                        }
-                    }else {
-                        if (!viewHolder.discountText.getText().toString().isEmpty()){
-                            discount=Double.parseDouble(viewHolder.discountText.getText().toString());
-                        }else {
-                            model.setDiscount("");
-                            discount=0.0;
-                        }
-                        balance=Double.parseDouble(model.getNetBalance()) - discount;
-                        model.setBalance(balance+"");
-                        model.setPayable("");
-                        viewHolder.discountText.setText("");
-                        viewHolder.balanceAmount.setText(balance+"");
-                        setNetTotal();
+                            balance=Double.parseDouble(model.getNetBalance()) - discount;
+                            model.setBalance(balance+"");
+                            model.setPayable("");
+                            viewHolder.discountText.setText("");
+                            viewHolder.balanceAmount.setText(balance+"");
+                            setNetTotal();
 
-                    }
-                }catch (Exception ec){}
+                        }
+                    }catch (Exception ec){}
+                }else{
+                    Log.w("receiptentr11:","");
+                }
             }
         };
         if (viewHolder.payableText.isFocusable()){
             viewHolder.payableText.addTextChangedListener(payableTextWatcher);
         }
-
 
         discountTextWatcher=new TextWatcher() {
             @Override
@@ -261,7 +271,7 @@ public class NewCashCollectionAdapter extends RecyclerView.Adapter<NewCashCollec
                 balance=netbalance-payable;
                 if (!editable.toString().isEmpty()){
                     if (balance < 0){
-                       // Toast.makeText(context,"New Balance exceed",Toast.LENGTH_SHORT).show();
+                        // Toast.makeText(context,"New Balance exceed",Toast.LENGTH_SHORT).show();
                         model.setDiscount("0.00");
                         setDiscountCalculation(model,viewHolder,editable.toString());
                         setNetTotal();
@@ -412,7 +422,7 @@ public class NewCashCollectionAdapter extends RecyclerView.Adapter<NewCashCollec
     }
 
     public void setNetTotal(){
-       try {
+        try {
 
             double net_value=0.0;
             double net_discount=0.0;
@@ -431,11 +441,11 @@ public class NewCashCollectionAdapter extends RecyclerView.Adapter<NewCashCollec
                 net_outstanding+=Double.parseDouble(model.getNetBalance());
                 //if (model.isChecked()){
                 net_value+=Double.parseDouble(model.getNetTotal());
-               // if (model.getChecked().equals("true")){
-                    if (model.getDiscount()!=null && !model.getDiscount().isEmpty() && !model.getDiscount().equals(".")){
-                        net_discount+=Double.parseDouble(model.getDiscount());
-                    }
-               // }
+                // if (model.getChecked().equals("true")){
+                if (model.getDiscount()!=null && !model.getDiscount().isEmpty() && !model.getDiscount().equals(".")){
+                    net_discount+=Double.parseDouble(model.getDiscount());
+                }
+                // }
                 if (model.getTranType().equals("INV")){
                     if (model.getPayable()!=null && !model.getPayable().isEmpty() && !model.getPayable().equals(".")){
                         paid_amount+=Double.parseDouble(model.getPayable());
@@ -452,8 +462,8 @@ public class NewCashCollectionAdapter extends RecyclerView.Adapter<NewCashCollec
 
             net_paid_amount_value=paid_amount-debit_amout;
 
-            Log.w("SalesReturnValue:",SalesReturnAdapter.net_return_value);
-            Log.w("NetOutStanding:", String.valueOf(net_outstanding));
+            Log.w("SalesReturnValue1:",SalesReturnAdapter.net_return_value);
+            Log.w("NetOutStanding1:", String.valueOf(net_outstanding));
 
             if (paid_amount < Double.parseDouble(SalesReturnAdapter.net_return_value) ){
                 CashInvoiceFragment.refreshReturn();
@@ -495,41 +505,41 @@ public class NewCashCollectionAdapter extends RecyclerView.Adapter<NewCashCollec
                 }
 
             }else {*/
-                CashCollectionActivity.totalPaid.setText(Utils.twoDecimalPoint(net_paid_amount_value));
-                CashCollectionActivity.amountText.setText(Utils.twoDecimalPoint(net_paid_amount_value));
-                CashCollectionActivity.selectedAmount.setText(Utils.twoDecimalPoint(net_paid_amount_value));
-                CashCollectionActivity.totalDiscount.setText(Utils.twoDecimalPoint(net_discount));
-                CashCollectionActivity.returnAmountEditText.setText(Utils.twoDecimalPoint(debit_amout));
-                double net_value_amount=0.0;
-                double net_amount=Double.parseDouble(CashCollectionActivity.amountText.getText().toString());
-                if (net_amount < 0){
-                    net_value_amount=Math.abs(net_amount);
-                }else {
-                    net_value_amount=Double.parseDouble(CashCollectionActivity.amountText.getText().toString());
-                }
-                double net_outstand_value=net_outstanding-Double.parseDouble(CashCollectionActivity.amountText.getText().toString())- Double.parseDouble(CashCollectionActivity.totalDiscount.getText().toString());
-                if (net_outstand_value < 0){
-                    CashCollectionActivity.totalOutstanding.setText("0.00");
-                }else {
-                    CashCollectionActivity.totalOutstanding.setText(Utils.twoDecimalPoint(net_outstand_value));
-                }
+            CashCollectionActivity.totalPaid.setText(Utils.twoDecimalPoint(net_paid_amount_value));
+            CashCollectionActivity.amountText.setText(Utils.twoDecimalPoint(net_paid_amount_value));
+            CashCollectionActivity.selectedAmount.setText(Utils.twoDecimalPoint(net_paid_amount_value));
+            CashCollectionActivity.totalDiscount.setText(Utils.twoDecimalPoint(net_discount));
+            CashCollectionActivity.returnAmountEditText.setText(Utils.twoDecimalPoint(debit_amout));
+            double net_value_amount=0.0;
+            double net_amount=Double.parseDouble(CashCollectionActivity.amountText.getText().toString());
+            if (net_amount < 0){
+                net_value_amount=Math.abs(net_amount);
+            }else {
+                net_value_amount=Double.parseDouble(CashCollectionActivity.amountText.getText().toString());
+            }
+            double net_outstand_value=net_outstanding-Double.parseDouble(CashCollectionActivity.amountText.getText().toString())- Double.parseDouble(CashCollectionActivity.totalDiscount.getText().toString());
+            if (net_outstand_value < 0){
+                CashCollectionActivity.totalOutstanding.setText("0.00");
+            }else {
+                CashCollectionActivity.totalOutstanding.setText(Utils.twoDecimalPoint(net_outstand_value));
+            }
 
-                // Display the Difference Amount of the Paid Invoice Amount
-                if (!CashCollectionActivity.netAmount.getText().toString().isEmpty()){
-                    entered_net_amount=Double.parseDouble(CashCollectionActivity.netAmount.getText().toString());
-                }
+            // Display the Difference Amount of the Paid Invoice Amount
+            if (!CashCollectionActivity.netAmount.getText().toString().isEmpty()){
+                entered_net_amount=Double.parseDouble(CashCollectionActivity.netAmount.getText().toString());
+            }
 
-                if (!CashCollectionActivity.selectedAmount.getText().toString().isEmpty()){
-                    selected_amount=Double.parseDouble(CashCollectionActivity.selectedAmount.getText().toString());
-                }
+            if (!CashCollectionActivity.selectedAmount.getText().toString().isEmpty()){
+                selected_amount=Double.parseDouble(CashCollectionActivity.selectedAmount.getText().toString());
+            }
 
-                if (!CashCollectionActivity.differenceAmount.getText().toString().isEmpty()){
-                    difference_amount=Double.parseDouble(CashCollectionActivity.differenceAmount.getText().toString());
-                }
+            if (!CashCollectionActivity.differenceAmount.getText().toString().isEmpty()){
+                difference_amount=Double.parseDouble(CashCollectionActivity.differenceAmount.getText().toString());
+            }
 
-                difference_amount=entered_net_amount-selected_amount;
-                CashCollectionActivity.differenceAmount.setText(Utils.twoDecimalPoint(difference_amount));
-         //   }
+            difference_amount=entered_net_amount-selected_amount;
+            CashCollectionActivity.differenceAmount.setText(Utils.twoDecimalPoint(difference_amount));
+            //   }
 
         }catch (Exception ex){
         }
@@ -563,8 +573,8 @@ public class NewCashCollectionAdapter extends RecyclerView.Adapter<NewCashCollec
                 // }
             }
 
-            Log.w("SalesReturnValue:",SalesReturnAdapter.net_return_value);
-            Log.w("NetOutStanding:", String.valueOf(net_outstanding));
+            Log.w("SalesReturnValuea:",SalesReturnAdapter.net_return_value);
+            Log.w("NetOutStandinga:", String.valueOf(net_outstanding));
 
             if (paid_amount < Double.parseDouble(SalesReturnAdapter.net_return_value) ){
                 CashInvoiceFragment.refreshReturn();
@@ -572,6 +582,7 @@ public class NewCashCollectionAdapter extends RecyclerView.Adapter<NewCashCollec
 
             if (SalesReturnAdapter.net_return_value!=null && Double.parseDouble(SalesReturnAdapter.net_return_value) > 0){
                 double net_paid_amount=paid_amount - Double.parseDouble(SalesReturnAdapter.net_return_value);
+
                 if (net_paid_amount < 0) {
                     CashCollectionActivity.totalPaid.setText("0.00");
                     CashCollectionActivity.amountText.setText("0.00");
@@ -656,9 +667,9 @@ public class NewCashCollectionAdapter extends RecyclerView.Adapter<NewCashCollec
             if (model.getDiscountAmount().isEmpty()){
                 discount_amt=Double.parseDouble(model.getDiscountAmount());
             }
-            Log.w("NeTTotal:",net_total+"");
+            Log.w("NeTTotal1:",net_total+"");
             if (model.getTranType().equals("INV")){
-               balance=net_total-payable-discount;
+                balance=net_total-payable-discount;
             }else {
                 balance=net_total+payable-discount;
             }
@@ -669,16 +680,16 @@ public class NewCashCollectionAdapter extends RecyclerView.Adapter<NewCashCollec
             }
             double paid_value=paid_amt+payable;
             if (balance<0){
-               // viewHolder.paidAmount.setText(Utils.twoDecimalPoint(Double.parseDouble(viewHolder.payableText.getText().toString())));
+                // viewHolder.paidAmount.setText(Utils.twoDecimalPoint(Double.parseDouble(viewHolder.payableText.getText().toString())));
             }else {
-              //  viewHolder.paidAmount.setText(Utils.twoDecimalPoint(paid_value));
+                //  viewHolder.paidAmount.setText(Utils.twoDecimalPoint(paid_value));
             }
 
             setNetTotal();
 
-        //    model.setBalance(Utils.twoDecimalPoint(balance));
-          //  model.setDiscount(Utils.twoDecimalPoint(discount));
-          //  model.setPayable(Utils.twoDecimalPoint(payable));
+            //    model.setBalance(Utils.twoDecimalPoint(balance));
+            //  model.setDiscount(Utils.twoDecimalPoint(discount));
+            //  model.setPayable(Utils.twoDecimalPoint(payable));
 
           /*  if (payable==Double.parseDouble(model.getBalance())){
                 viewHolder.discountAmount.setEnabled(false);
@@ -714,7 +725,7 @@ public class NewCashCollectionAdapter extends RecyclerView.Adapter<NewCashCollec
                 net_balance=Double.parseDouble(viewHolder.netBalanceText.getText().toString());
             }
 
-            Log.w("Discountvalues:",discount+"");
+            Log.w("Discountvalues1:",discount+"");
 
             double balance=net_balance-discount-payable;
 
@@ -725,7 +736,7 @@ public class NewCashCollectionAdapter extends RecyclerView.Adapter<NewCashCollec
                 if (!value.isEmpty()) {
                     disc = Double.parseDouble(value);
                     main_bal=Double.parseDouble(viewHolder.netBalanceText.getText().toString());
-                    Log.w("Main_Balance:",String.valueOf(main_bal));
+                    Log.w("Main_Balance1:",String.valueOf(main_bal));
                     net_pay=main_bal-disc;
                     viewHolder.balanceAmount.setText("0.0");
                     viewHolder.payableText.removeTextChangedListener(payableTextWatcher);
@@ -740,7 +751,7 @@ public class NewCashCollectionAdapter extends RecyclerView.Adapter<NewCashCollec
                         model.setPayable("");
                         viewHolder.discountText.setText("");
                         viewHolder.balanceAmount.setText(model.getNetBalance());
-                       // viewHolder.discountText.setSelection(viewHolder.discountText.getText().length());
+                        // viewHolder.discountText.setSelection(viewHolder.discountText.getText().length());
                         viewHolder.discountText.addTextChangedListener(discountTextWatcher);
                         model.setDiscount("0.00");
                         Log.w("ValuesExceed:",viewHolder.discountText.getText().toString());
@@ -817,6 +828,10 @@ public class NewCashCollectionAdapter extends RecyclerView.Adapter<NewCashCollec
             payableText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
 
         }
+    }
+    @Override
+    public long getItemId(int position) {
+        return position;
     }
 
     @Override

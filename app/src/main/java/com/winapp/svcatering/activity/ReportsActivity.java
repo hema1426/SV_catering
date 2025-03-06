@@ -1261,7 +1261,7 @@ public class ReportsActivity extends NavigationActivity implements View.OnClickL
         customerList=new ArrayList<>();
         searchableCustomerList=new ArrayList<>();
         searchableCustomerList.add("Select Customer");
-        Log.w("Given_url_customer:",url);
+        Log.w("Given_url_customer:",url+jsonObject);
         ProgressDialog progressDialog=new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Customer List Loading....");
