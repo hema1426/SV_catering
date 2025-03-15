@@ -1,6 +1,7 @@
 package com.winapp.svcatering.fragments;
 
 import static com.winapp.svcatering.activity.NewInvoiceListActivity.isLastSales;
+import static com.winapp.svcatering.activity.NewInvoiceListActivity.zoneStrCode;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -257,13 +258,13 @@ public class UnpaidInvoices extends Fragment {
             // Initialize a new JsonArrayRequest instance
             JSONObject jsonObject=new JSONObject();
             jsonObject.put("User",username);
-            jsonObject.put("LocationCode",locationCode);
+            jsonObject.put("CostCenterCodeAndName",zoneStrCode);
             jsonObject.put("CustomerCode","");
             jsonObject.put("FromDate","");
             jsonObject.put("ToDate", "");
             jsonObject.put("DocStatus","");
             String url = Utils.getBaseUrl(getActivity()) + "InvoiceList";
-            Log.w("Given_url:", url);
+            Log.w("Given_url:", url+jsonObject);
             pDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
             pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
             pDialog.setTitleText("Getting All Invoices...");
