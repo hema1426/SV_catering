@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:background="@color/lit_grey_new"
     android:layout_height="match_parent"
-    tools:context="com.winapp.saperpSQL.activity.CashCollectionActivity">
+    >
 
     <FrameLayout
         android:layout_width="match_parent"

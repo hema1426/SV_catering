@@ -257,8 +257,9 @@
             android:name=".activity.ProductStockAnalysisActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".googlemap.CustomerLocationActivity" />
-        <activity android:name=".googlemap.MapBoxActivity" />
+<!--        <activity android:name=".googlemap.CustomerLocationActivity" />-->
+<!--        <activity android:name=".googlemap.MapBoxActivity" />-->
+<!--       -->
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
