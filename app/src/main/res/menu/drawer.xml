@@ -118,6 +118,15 @@
             android:title="Receipts" />
 
     </group>
+    <group
+        android:id="@+id/drawermenu_group_21">
+        <item
+            android:icon="@drawable/ic_baseline_transform_24"
+            android:id="@+id/navigation_stock_take"
+            android:visible="true"
+            android:title="Stock Take" />
+
+    </group>
 
 
     <group

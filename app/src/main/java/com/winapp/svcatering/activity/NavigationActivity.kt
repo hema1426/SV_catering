@@ -335,7 +335,16 @@ open class NavigationActivity : AppCompatActivity() {
                 startActivity(intent)
                 drawerLayout!!.closeDrawers()
                 return@OnNavigationItemSelectedListener true
-            } else if (itemId == R.id.navigation_settlement) {
+            } else if (itemId == R.id.navigation_stock_take) {
+                val intent: Intent
+                intent = Intent(this@NavigationActivity, StockTakeListActivity::class.java)
+                intent.putExtra("docNum", "")
+                intent.putExtra("transferType", "")
+                startActivity(intent)
+                drawerLayout!!.closeDrawers()
+                return@OnNavigationItemSelectedListener true
+            }
+            else if (itemId == R.id.navigation_settlement) {
                 val intent: Intent
                 intent = Intent(this@NavigationActivity, SettlementListActivity::class.java)
                 startActivity(intent)

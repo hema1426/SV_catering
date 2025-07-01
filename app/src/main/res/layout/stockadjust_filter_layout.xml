@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="#8000"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:fillViewport="true"
+        android:background="@color/white"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:focusableInTouchMode="true"
+            android:paddingBottom="10dp"
+            android:layout_height="match_parent">
+
+
+            <LinearLayout
+                android:layout_width="400dp"
+                android:padding="5dp"
+                android:focusableInTouchMode="true"
+                android:layout_weight="1"
+                android:visibility="gone"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sales Man"
+                        android:textColor="#212121"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
+
+                <Spinner
+                    android:id="@+id/salesman_spinner"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/invoice_edit_text"
+                    android:layout_height="wrap_content"
+                   />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:background="@color/white"
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:padding="10dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="From Date"
+                            android:textColor="#212121"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:hint="From Date"
+                        android:padding="5dp"
+                        android:textSize="12sp"
+                        android:focusable="false"
+                        android:id="@+id/from_dateadj"
+                        android:drawableRight="@drawable/ic_calendar"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/invoice_edit_text"
+                        android:layout_below="@+id/code_title"
+                        android:layout_height="35dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:padding="10dp"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:text="To Date"
+                            android:textSize="12sp"
+                            android:textColor="#212121"
+                            android:textStyle="bold"
+                            android:layout_height="wrap_content"/>
+
+
+                    </LinearLayout>
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:padding="5dp"
+                        android:focusable="false"
+                        android:textSize="12sp"
+                        android:id="@+id/to_dateadj"
+                        android:drawableRight="@drawable/ic_calendar"
+                        android:hint="To Date"
+                        android:background="@drawable/invoice_edit_text"
+                        android:layout_below="@+id/code_title"
+                        android:layout_height="35dp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:focusableInTouchMode="true"
+                android:layout_weight="1"
+                android:paddingBottom="20dp"
+                android:paddingTop="5dp"
+                android:layout_margin="5dp"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Status"
+                        android:textColor="#212121"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
+
+
+                <Spinner
+                    android:id="@+id/statusadjust"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/invoice_edit_text"
+                    android:layout_height="35dp"
+                    android:entries="@array/sales_arrays"
+                    android:prompt="@string/invoice_prompt" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_gravity="right"
+                android:gravity="right"
+                android:layout_height="wrap_content">
+
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:textSize="12sp"
+                    android:layout_marginRight="10dp"
+                    android:id="@+id/btn_canceladjust"
+                    android:text="Cancel"
+                    android:background="?actionBarItemBackground"
+                    android:textStyle="bold"
+                    android:textColor="@color/red_btn_bg_color"
+                    android:layout_height="40dp"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="10dp"
+                    android:textSize="12sp"
+                    android:id="@+id/btn_searchadjust"
+                    android:text="Search"
+                    android:background="?actionBarItemBackground"
+                    android:textStyle="bold"
+                    android:textColor="#006DDB"
+                    android:layout_height="40dp"/>
+
+
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>

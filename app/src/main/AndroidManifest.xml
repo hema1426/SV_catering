@@ -120,7 +120,21 @@
             android:name=".ReportPreview.RoCustomerOutstandDatePreviewActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
-
+        <activity
+            android:name="com.winapp.svcatering.activity.StockTakeListActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.winapp.svcatering.activity.StockTakePreviewPrintActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.winapp.svcatering.activity.StockTakeAddActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ReportPreview.SapStockSummaryPreviewActivity"
             android:exported="false"

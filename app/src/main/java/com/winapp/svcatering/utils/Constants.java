@@ -37,7 +37,7 @@ public class Constants {
 
     // todo app name - SV Catering cash collection
     public static String SV_Catering_DEMO_URL =" https://c21199-ezy-cashcollection.cloudiax.com/api/";
-    public static String SV_Catering_DEMO_URL_1 =" https://c21521app01p01-cashcollection.cloudiax.com/api/";
+    public static String SV_Catering_SINGAPO_DEMO_URL_1 =" https://c21521app01p01-cashcollection.cloudiax.com/api/";
 
     public static String getFolderPath(Context mContext){
         return new ContextWrapper(mContext).getExternalFilesDir(Environment.DIRECTORY_DCIM).toString()+ "/CatalogSAPErp/Products";
