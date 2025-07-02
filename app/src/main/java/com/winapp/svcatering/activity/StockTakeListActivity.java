@@ -321,7 +321,7 @@ public class StockTakeListActivity extends NavigationActivity implements View.On
         try {
             stockTakeAdapter = new StockTakeAdapter(this, transferList, new StockTakeAdapter.CallBack() {
                 @Override
-                public void callDescription(String transferNo, String mode) {
+                public void callDescription(String transferNo, StockTakeModel model ,String mode) {
                     if (mode.equals("Print")) {
                         try {
                             getTransferDetails(1, transferNo.toString(), transferType);
@@ -331,6 +331,9 @@ public class StockTakeListActivity extends NavigationActivity implements View.On
                     } else {
                         Intent intent = new Intent(getApplicationContext(), StockTakePreviewPrintActivity.class);
                         intent.putExtra("takeNumber", transferNo);
+                        intent.putExtra("stocktakeNo", model.getStockTakeNo());
+                        intent.putExtra("stocktakeDate", model.getDate());
+                        intent.putExtra("stocktakeLoc", model.getLocation());
                         startActivity(intent);
                     }
                 }

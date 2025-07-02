@@ -39,8 +39,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
@@ -72,7 +76,7 @@ public class StockTakePreviewPrintActivity extends AppCompatActivity {
     String company_gst;
     SweetAlertDialog pDialog;
     AlertDialog alert11;
-    String takeNo;
+    String takeNo,takeDate ,takeLoc, stockTakeNo;
     String type;
     private LinearLayout mainLayout;
 
@@ -111,10 +115,28 @@ public class StockTakePreviewPrintActivity extends AppCompatActivity {
         try {
             if (getIntent()!=null){
                 takeNo =getIntent().getStringExtra("takeNumber");
+                stockTakeNo =getIntent().getStringExtra("stocktakeNo");
+                takeDate =getIntent().getStringExtra("stocktakeDate");
+                takeLoc =getIntent().getStringExtra("stocktakeLoc");
+
+                transferno.setText(stockTakeNo);
+                String apidate = "" ;
+                String apidateFormat = "" ;
+
+                apidate =takeDate ;
+                SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy");
+                Date datem = null;
+                datem = sdf.parse(apidate);
+
+                apidateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.US).format(datem);
+                transferdate.setText(apidateFormat);
+
                 getStockTakeDetails(takeNo);
             }
         } catch (JSONException e) {
             e.printStackTrace();
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
         }
         setTitle("Stock Take");
 
@@ -219,7 +241,7 @@ public class StockTakePreviewPrintActivity extends AppCompatActivity {
 
                             if (stockTakeDetailsList.size() > 0) {
                                 setTakeAdapter();
-                                transfertype.setText(type);
+                             //   transfertype.setText(type);
                             }
                         }else {
                             Toast.makeText(getApplicationContext(),statusMessage,Toast.LENGTH_SHORT).show();
@@ -264,8 +286,10 @@ public class StockTakePreviewPrintActivity extends AppCompatActivity {
     public void setTakeAdapter() {
         try {
             for (StockTakeDetailModel model : stockTakeModels) {
-                transferno.setText(takeNo);
-                transferdate.setText(model.getDate());
+                //transferno.setText(takeNo);
+               // transferdate.setText(model.getDate());
+
+                from_locat.setText(model.getStockTakeDetailsList().get(0).getLocation());
             }
             takeListView.setHasFixedSize(true);
             takeListView.setLayoutManager(new LinearLayoutManager(StockTakePreviewPrintActivity.this, LinearLayoutManager.VERTICAL, false));

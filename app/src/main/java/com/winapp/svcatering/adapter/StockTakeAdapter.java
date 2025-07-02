@@ -25,9 +25,12 @@ import com.winapp.svcatering.R;
 import com.winapp.svcatering.model.StockTakeModel;
 import com.winapp.svcatering.utils.SessionManager;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 public class StockTakeAdapter extends RecyclerView.Adapter<StockTakeAdapter.TransferViewHolder> implements Filterable {
@@ -105,8 +108,18 @@ public class StockTakeAdapter extends RecyclerView.Adapter<StockTakeAdapter.Tran
         try {
             final StockTakeModel model = transferList.get(position);
             int sn=position+1;
+            String apidate = "" ;
+            String apidateFormat = "" ;
             holder.takeNo.setText(model.getStockTakeNo());
-            holder.date.setText(model.getDate());
+
+            apidate =model.getDate();
+            SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy");
+            Date datem = null;
+            datem = sdf.parse(apidate);
+
+            apidateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.US).format(datem);
+
+            holder.date.setText(apidateFormat);
             holder.tolocation.setText(model.getLocation());
             
             if (model.getStatus().equals("Open") || model.getStatus().equals("O")){
@@ -119,7 +132,7 @@ public class StockTakeAdapter extends RecyclerView.Adapter<StockTakeAdapter.Tran
             holder.printPreview.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    callBack.callDescription(model.getCode(),"Preview");
+                    callBack.callDescription(model.getCode(),model,"Preview");
                 }
             });
 
@@ -137,7 +150,7 @@ public class StockTakeAdapter extends RecyclerView.Adapter<StockTakeAdapter.Tran
     }
 
     public interface CallBack {
-        void callDescription(String transferId,String mode);
+        void callDescription(String transferId,StockTakeModel model ,String mode);
         void convertTransfer(String requestId);
     }
 

@@ -35,49 +35,45 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="vertical"
-                android:paddingBottom="10dp"
-                android:padding="8dp"
+                android:padding="3dp"
                 android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:orientation="horizontal"
-                    android:padding="0dp"
                     android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:textSize="12sp"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="10dp"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:layout_weight="0.7"
-                        android:maxWidth="280dp"
-                        android:id="@+id/take_date"
-                        android:textColor="#212121"
-                        android:layout_height="wrap_content"/>
 
                     <LinearLayout
                         android:layout_width="0dp"
-                        android:orientation="vertical"
+                        android:orientation="horizontal"
                         android:layout_gravity="center"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:layout_height="wrap_content">
 
                         <TextView
                             android:layout_width="wrap_content"
+                            android:text="Stock Take No :  "
+                            android:textSize="12sp"
+                            android:layout_gravity="center"
+                            android:textColor="@color/pink_clr"
+                            android:layout_marginLeft="5dp"
+                            android:textStyle="bold"
+                            android:layout_height="wrap_content"/>
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
                             android:layout_marginRight="40dp"
-                            android:layout_gravity=""
+                            android:layout_gravity="center"
                             android:textStyle="bold"
                             android:id="@+id/take_no"
+                            android:text=""
                             android:textSize="14sp"
-                            android:textColor="#212121"
+                            android:textColor="@color/colorPrimary"
                             android:layout_height="wrap_content"/>
 
 
                     </LinearLayout>
-
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -120,12 +116,12 @@
                             android:layout_height="wrap_content"/>
 
                         <ImageView
-                            android:layout_width="70dp"
-                            android:textSize="14sp"
+                            android:layout_width="90dp"
+                            android:textSize="17sp"
                             android:textStyle="bold"
                             android:id="@+id/status"
-                            android:textColor="#24B8A4"
-                            android:layout_height="30dp"/>
+                            android:textColor="@color/colorgreen"
+                            android:layout_height="35dp"/>
 
                     </LinearLayout>
 
@@ -270,17 +266,33 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="horizontal"
-                android:padding="8dp"
+                android:padding="4dp"
                 android:gravity="center"
                 android:layout_gravity="center"
                 android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:textSize="13sp"
+                    android:layout_marginLeft="10dp"
+                    android:textStyle="bold"
+                    android:text="t"
+                    android:id="@+id/take_date"
+                    android:textColor="#212121"
+                    android:layout_height="wrap_content"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:text="Loc :  "
+                    android:text="Location :  "
                     android:textSize="12sp"
                     android:layout_marginLeft="10dp"
                     android:textStyle="bold"
+                    android:textColor="@color/black"
                     android:layout_gravity="center"
                     android:layout_height="wrap_content"/>
                 <TextView
@@ -291,6 +303,7 @@
                     android:textColor="@color/colorGreen"
                     android:textSize="12sp"
                     android:textStyle="bold" />
+                </LinearLayout>
                 <Space
                     android:layout_width="0dp"
                     android:layout_weight="1"
@@ -310,6 +323,7 @@
                     android:layout_marginRight="10dp"
                     android:background="?selectableItemBackgroundBorderless"
                     android:id="@+id/print_preview"
+                    android:padding="7dp"
                     android:src="@drawable/ic_baseline_topic_24"
                     android:layout_height="wrap_content"/>
 

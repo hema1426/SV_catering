@@ -154,8 +154,8 @@ public class SplashActivity extends AppCompatActivity {
                 );
                 finish();
             }else {
-        String apiUrl=Constants.SV_Catering_DEMO_URL;
-      //  String apiUrl = Constants.SV_Catering_SINGAPO_DEMO_URL_1;
+       // String apiUrl=Constants.SV_Catering_DEMO_URL;
+        String apiUrl = Constants.SV_Catering_SINGAPO_DEMO_URL_1;
 
                 dbHelper.insertUrl(apiUrl);
                 startActivity(new Intent(SplashActivity.this,LoginActivity.class));

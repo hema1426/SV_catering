@@ -128,7 +128,6 @@
         <activity
             android:name="com.winapp.svcatering.activity.StockTakePreviewPrintActivity"
             android:exported="false"
-            android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.winapp.svcatering.activity.StockTakeAddActivity"
